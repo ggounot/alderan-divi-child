@@ -20,6 +20,19 @@ $events_label_plural   = tribe_get_event_label_plural();
 
 $event_id = get_the_ID();
 
+function alderan_the_speaker($event_id) {
+	/* Displays the speaker. */
+	$intro = 'Conférence par';
+	$speaker = get_post_meta($event_id, $intro, true);
+	if (empty($speaker)) {
+		$intro = 'Débat animé par';
+		$speaker = get_post_meta($event_id, $intro, true);
+	}
+	if (empty($speaker)) {
+		return;
+	}
+	echo '<h2 class="alderan-speaker">' . $intro . ' ' . $speaker . '</h2>';
+}
 ?>
 
 <div id="tribe-events-content" class="tribe-events-single">
@@ -32,6 +45,8 @@ $event_id = get_the_ID();
 	<?php tribe_the_notices() ?>
 
 	<?php the_title( '<h1 class="tribe-events-single-event-title">', '</h1>' ); ?>
+
+	<?php alderan_the_speaker($event_id); ?>
 
 	<div class="tribe-events-schedule tribe-clearfix">
 		<?php echo tribe_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>
