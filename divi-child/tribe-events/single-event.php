@@ -33,6 +33,15 @@ function alderan_the_speaker($event_id) {
 	}
 	echo '<h2 class="alderan-speaker">' . $intro . ' ' . $speaker . '</h2>';
 }
+
+function alderan_the_price($event_id) {
+	$price = get_post_meta($event_id, 'Prix', true);
+	if (empty($price)) {
+		return;
+	}
+	echo '<h2 class="alderan-price">Prix&#8239;: ' . $price . '&#8239;€</h2>'; 
+}
+
 ?>
 
 <div id="tribe-events-content" class="tribe-events-single">
@@ -47,6 +56,8 @@ function alderan_the_speaker($event_id) {
 	<?php the_title( '<h1 class="tribe-events-single-event-title">', '</h1>' ); ?>
 
 	<?php alderan_the_speaker($event_id); ?>
+
+	<?php alderan_the_price($event_id); ?>
 
 	<div class="tribe-events-schedule tribe-clearfix">
 		<?php echo tribe_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>
